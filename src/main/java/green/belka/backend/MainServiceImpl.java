@@ -36,9 +36,6 @@ public class MainServiceImpl implements MainService {
 
     @Override
     public ResponseData<Long> addAchievement(Achievement achievement)  {
-        if(achievement.getAuthorId() == null || userRepository.findById(achievement.getAuthorId()).get() == null) {
-            throw new RuntimeException("Kiruha petuh obosralsia");
-        }
         Long id = achievementRepository.save(achievement).getId();
         return new ResponseData<>(id, ResultCode.OK);
     }
@@ -50,7 +47,7 @@ public class MainServiceImpl implements MainService {
         if(achievement.getId() != null) {
             achievement = achievementRepository.findById(achievement.getId()).get();
         }
-//        userRepository.deleteById(user.getId());
+
         if(user.getScore() == null) {
             user.setScore(0l);
         }
@@ -102,6 +99,12 @@ public class MainServiceImpl implements MainService {
     public ResponseData<Long> deleteUser(Long id) {
         userRepository.deleteById(id);
         return new ResponseData<Long>(id, ResultCode.OK);
+    }
+
+    @Override
+    public ResponseData<List<Achievement>> getAchievementsByUserId(Long id) {
+        List<Achievement> achievements = achievementRepository.findAllByAuthorId(id);
+        return new ResponseData<>(achievements, ResultCode.OK);
     }
 
 }

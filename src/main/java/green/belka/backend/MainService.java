@@ -29,4 +29,6 @@ public interface MainService {
     ResponseData<Long> updateUser(User user);
 
     ResponseData<Long> deleteUser(Long id);
+
+    ResponseData<List<Achievement>> getAchievementsByUserId(Long id);
 }

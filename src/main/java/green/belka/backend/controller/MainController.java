@@ -73,4 +73,11 @@ public class MainController {
     }
 
 
+    @RequestMapping(
+            value = {"/author/{id}"},
+            method = {RequestMethod.GET}
+    )
+    public ResponseData<List<Achievement>> getAchievementsByUserId(@PathVariable("id") String id){
+        return mainService.getAchievementsByUserId(Long.parseLong(id));
+    }
 }
