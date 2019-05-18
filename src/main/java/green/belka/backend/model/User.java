@@ -14,7 +14,7 @@ public class User {
     @Setter
     @Getter
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+//    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
     @Setter
