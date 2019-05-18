@@ -52,8 +52,8 @@ public class MainController {
             value = {"/user/{id}"},
             method = {RequestMethod.GET}
     )
-    public ResponseData<User> getUser(@PathVariable("id") Long id){
-        return mainService.getUser(id);
+    public ResponseData<User> getUser(@PathVariable("id") String id){
+        return mainService.getUser(Long.parseLong(id));
     }
 
     @RequestMapping(
