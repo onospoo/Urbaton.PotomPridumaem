@@ -25,6 +25,10 @@ public class Achievement {
     @JoinColumn(name = "achievements")
     private List<User> users;
 
+    @Getter
+    @Setter
+    private Long authorId;
+
     @Setter
     @Getter
     private String description;

@@ -35,7 +35,10 @@ public class MainServiceImpl implements MainService {
     }
 
     @Override
-    public ResponseData<Long> addAchievement(Achievement achievement) {
+    public ResponseData<Long> addAchievement(Achievement achievement)  {
+        if(achievement.getAuthorId() == null || userRepository.findById(achievement.getAuthorId()).get() == null) {
+            throw new RuntimeException("Kiruha petuh obosralsia");
+        }
         Long id = achievementRepository.save(achievement).getId();
         return new ResponseData<>(id, ResultCode.OK);
     }
@@ -48,6 +51,10 @@ public class MainServiceImpl implements MainService {
             achievement = achievementRepository.findById(achievement.getId()).get();
         }
 //        userRepository.deleteById(user.getId());
+        if(user.getScore() == null) {
+            user.setScore(0l);
+        }
+        user.setScore(user.getScore() + achievement.getCost());
         user.getAchievements().add(achievement);
         user = userRepository.save(user);
 
