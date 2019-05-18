@@ -19,11 +19,11 @@ public class Achievement {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    @Setter
-    @Getter
-    @ManyToMany(cascade=CascadeType.MERGE)
-    @JoinColumn(name = "achievements")
-    private List<User> users;
+//    @Setter
+//    @Getter
+//    @ManyToMany(cascade=CascadeType.MERGE)
+//    @JoinColumn(name = "achievements")
+//    private List<User> users;
 
     @Getter
     @Setter
@@ -43,7 +43,7 @@ public class Achievement {
 
     @Getter
     @Setter
-    private Long status;
+    private Status status;
 
     @Getter
     @Setter
@@ -55,24 +55,3 @@ public class Achievement {
     private Long achievement_limit;
 
 }
-//	@OneToOne(optional = false, mappedBy="id")
-//    private User author;
-
-    /*
-    @Setter
-    @Getter
-    private Long limit;
-
-    @Setter
-    @Getter
-    private LocalDate createDate;
-
-    @PreUpdate
-    protected void onUpdate() {
-        createDate = LocalDate.now();
-    }
-
-    @Setter
-    @Getter
-    private LocalDate finishDate;
-    */

@@ -1,10 +1,7 @@
 package green.belka.backend;
 
 
-import green.belka.backend.model.Achievement;
-import green.belka.backend.model.ResponseData;
-import green.belka.backend.model.ResultCode;
-import green.belka.backend.model.User;
+import green.belka.backend.model.*;
 import green.belka.backend.repository.AchievementRepository;
 import green.belka.backend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +33,7 @@ public class MainServiceImpl implements MainService {
 
     @Override
     public ResponseData<Long> addAchievement(Achievement achievement)  {
+        achievement.setStatus(Status.NONE);
         Long id = achievementRepository.save(achievement).getId();
         return new ResponseData<>(id, ResultCode.OK);
     }
@@ -52,6 +50,7 @@ public class MainServiceImpl implements MainService {
             user.setScore(0l);
         }
         user.setScore(user.getScore() + achievement.getCost());
+        achievement.setStatus(Status.STARTED);
         user.getAchievements().add(achievement);
         user = userRepository.save(user);
 
