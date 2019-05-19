@@ -117,6 +117,14 @@ public class MainController {
         return mainService.approveKey(key, Long.valueOf(id));
     }
 
+    @RequestMapping(
+            value = {"/admin/{nickname}"},
+            method = {RequestMethod.POST}
+    )
+    public ResponseData<Long> upgradeToAdmin(@PathVariable("nickname") String nickname){
+        return mainService.upgradeToAdmin(nickname);
+    }
+
 //    @RequestMapping(
 //            value = {"/user/proc/achievement/{id}"},
 //            method = {RequestMethod.GET}

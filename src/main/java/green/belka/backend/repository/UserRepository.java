@@ -10,4 +10,5 @@ import java.util.List;
 //@Transactional
 public interface UserRepository extends JpaRepository<User, Long> {
     List<User> findAllByRole(Role role);
+    User findByNickname(String nickname);
 }

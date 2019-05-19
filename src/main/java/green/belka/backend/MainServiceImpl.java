@@ -178,6 +178,16 @@ public class MainServiceImpl implements MainService {
         return new ResponseData<>(ResultCode.ERROR, "NO!");
     }
 
+    @Override
+    public ResponseData<Long> upgradeToAdmin(String nickname) {
+        User user = userRepository.findByNickname(nickname);
+        user.setRole(Role.ADMIN);
+        userRepository.save(user);
+
+        return new ResponseData<Long>(user.getId(), ResultCode.OK);
+
+    }
+
 //    @Override
 //    public ResponseData<List<Achievement>> getUserProcessingAchievementById(Long id) {
 //        List<Achievement> achievements = achievementRepository.findAllByStatus(Status.APPROVED).

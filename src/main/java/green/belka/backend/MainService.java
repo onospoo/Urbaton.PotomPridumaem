@@ -46,5 +46,7 @@ public interface MainService {
 
     ResponseData<Long> approveKey(UUID key, Long id);
 
+    ResponseData<Long> upgradeToAdmin(String username);
+
 //    ResponseData<List<Achievement>> getUserProcessingAchievementById(Long id);
 }
