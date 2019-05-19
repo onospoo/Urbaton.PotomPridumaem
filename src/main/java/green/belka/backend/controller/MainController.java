@@ -125,6 +125,14 @@ public class MainController {
         return mainService.upgradeToAdmin(nickname);
     }
 
+    @RequestMapping(
+            value = {"/check_admin/{nickname}"},
+            method = {RequestMethod.POST}
+    )
+    public ResponseData<Boolean> isAdmin(@PathVariable("nickname") String nickname){
+        return mainService.isAdmin(nickname);
+    }
+
 //    @RequestMapping(
 //            value = {"/user/proc/achievement/{id}"},
 //            method = {RequestMethod.GET}

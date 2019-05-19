@@ -1,6 +1,7 @@
 package green.belka.backend;
 
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import green.belka.backend.model.Achievement;
 import green.belka.backend.model.ResponseData;
 import green.belka.backend.model.User;
@@ -47,6 +48,8 @@ public interface MainService {
     ResponseData<Long> approveKey(UUID key, Long id);
 
     ResponseData<Long> upgradeToAdmin(String username);
+
+    ResponseData<Boolean> isAdmin(String username);
 
 //    ResponseData<List<Achievement>> getUserProcessingAchievementById(Long id);
 }
