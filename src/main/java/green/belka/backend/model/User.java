@@ -25,21 +25,21 @@ public class User {
 
     @Setter
     @Getter
-    private Role role;
+    private Role role = Role.USER;
 
     @Getter
     @Setter
-    private String nickname;
+    private String nickname = "";
 
     @Getter
     @Setter
-    private String first_name;
+    private String first_name = "";
 
     @Getter
     @Setter
-    private String last_name;
+    private String last_name = "";
 
     @Getter
     @Setter
-    private Long score;
+    private Long score = 0l;
 }

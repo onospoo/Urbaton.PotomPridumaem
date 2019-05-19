@@ -90,7 +90,7 @@ public class MainServiceImpl implements MainService {
 
     @Override
     public ResponseData<List<User>> getUsers() {
-        List<User> users = userRepository.findAll();
+        List<User> users = userRepository.findAllByRole(Role.USER);
         return new ResponseData<>(users, ResultCode.OK);
     }
 
@@ -151,6 +151,7 @@ public class MainServiceImpl implements MainService {
     @Override
     public ResponseData<List<User>> getAuthorsAndAchievement() {
         List<User> users =  userRepository.findAllByRole(Role.ADMIN);
+
         return new ResponseData<>(users, ResultCode.OK);
     }
 
@@ -165,10 +166,10 @@ public class MainServiceImpl implements MainService {
                 userRepository.save(user);
                 achievement.getKeys().remove(key);
                 achievementRepository.save(achievement);
-                return new ResponseData<Long>(achievement.getId(), ResultCode.OK);
+                return new ResponseData<>(achievement.getId(), ResultCode.OK);
             }
         }
-        return new ResponseData<Long>(ResultCode.ERROR, "NO!");
+        return new ResponseData<>(ResultCode.ERROR, "NO!");
     }
 
 //    @Override
