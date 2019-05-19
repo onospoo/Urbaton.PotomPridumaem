@@ -6,6 +6,7 @@ import green.belka.backend.model.ResponseData;
 import green.belka.backend.model.User;
 
 import java.util.List;
+import java.util.UUID;
 
 public interface MainService {
     ResponseData<Achievement> getAchievement(Long id);
@@ -31,4 +32,13 @@ public interface MainService {
     ResponseData<Long> deleteUser(Long id);
 
     ResponseData<List<Achievement>> getAchievementsByUserId(Long id);
+
+    void setStatusToWaiting(Long user, Long achievement);
+
+    void setStatusToApproved(Long user, Long achievement);
+
+    void setStatusToStarted(Long user, Long achievement);
+
+
+    ResponseData<List<UUID>> getKeys(long id);
 }

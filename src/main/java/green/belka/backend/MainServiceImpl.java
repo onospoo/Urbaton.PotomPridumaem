@@ -3,12 +3,14 @@ package green.belka.backend;
 
 import green.belka.backend.model.*;
 import green.belka.backend.repository.AchievementRepository;
+import green.belka.backend.repository.AchievementStatusRepository;
 import green.belka.backend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class MainServiceImpl implements MainService {
@@ -18,6 +20,9 @@ public class MainServiceImpl implements MainService {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    AchievementStatusRepository achievementStatusRepository;
 
     @Override
     public ResponseData<Achievement> getAchievement(Long id) {
@@ -35,6 +40,7 @@ public class MainServiceImpl implements MainService {
     public ResponseData<Long> addAchievement(Achievement achievement)  {
         achievement.setStatus(Status.NONE);
         Long id = achievementRepository.save(achievement).getId();
+
         return new ResponseData<>(id, ResultCode.OK);
     }
 
@@ -53,7 +59,11 @@ public class MainServiceImpl implements MainService {
         achievement.setStatus(Status.STARTED);
         user.getAchievements().add(achievement);
         user = userRepository.save(user);
-
+        AchievementStatus achievementStatus = new AchievementStatus();
+        achievementStatus.setAchievement_id(achievement.getId());
+        achievementStatus.setUser_id(user.getId());
+        achievementStatus.setStatus(Status.STARTED);
+        achievementStatusRepository.save(achievementStatus);
         achievement = user.getAchievements().get(user.getAchievements().size()-1);
         return new ResponseData<>(achievement.getId(), ResultCode.OK);
     }
@@ -104,6 +114,33 @@ public class MainServiceImpl implements MainService {
     public ResponseData<List<Achievement>> getAchievementsByUserId(Long id) {
         List<Achievement> achievements = achievementRepository.findAllByAuthorId(id);
         return new ResponseData<>(achievements, ResultCode.OK);
+    }
+
+    @Override
+    public void setStatusToWaiting(Long user, Long Achievement) {
+        if(achievementStatusRepository.findById(user).get() != null){
+            achievementStatusRepository.findById(user).get().setStatus(Status.WAITING);
+        }
+    }
+
+    @Override
+    public void setStatusToApproved(Long user, Long Achievement) {
+        if(achievementStatusRepository.findById(user).get() != null){
+            achievementStatusRepository.findById(user).get().setStatus(Status.APPROVED);
+        }
+    }
+
+    @Override
+    public void setStatusToStarted(Long user, Long Achievement) {
+        if(achievementStatusRepository.findById(user).get() != null){
+            achievementStatusRepository.findById(user).get().setStatus(Status.STARTED);
+        }
+    }
+
+    @Override
+    public ResponseData<List<UUID>> getKeys(long id) {
+        List<UUID> keys = achievementRepository.findById(id).get().getKeys();
+        return new ResponseData<List<UUID>>(keys, ResultCode.OK);
     }
 
 }

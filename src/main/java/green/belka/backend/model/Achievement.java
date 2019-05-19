@@ -6,7 +6,9 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 
 @Entity
@@ -54,4 +56,14 @@ public class Achievement {
     @Setter
     private Long achievement_limit;
 
+    public Achievement() {
+        for(int i = 0; i < 10; ++i) {
+            keys.add(UUID.randomUUID());
+        }
+    }
+
+    @Setter
+    @Getter
+    @ElementCollection
+    private List<UUID> keys = new ArrayList<>();
 }
