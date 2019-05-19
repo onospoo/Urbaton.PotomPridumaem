@@ -9,10 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
 public class MainServiceImpl implements MainService {
@@ -195,17 +193,10 @@ public class MainServiceImpl implements MainService {
     @Override
     public ResponseData<Boolean> isAdmin(String username) {
         User user = userRepository.findByNickname(username);
-        if(user != null && user.getRole()!= Role.ADMIN) {
-            return new ResponseData<>(false, ResultCode.OK);
-        } else {
+        if(user != null && user.getRole() == Role.ADMIN) {
             return new ResponseData<>(true, ResultCode.OK);
+        } else {
+            return new ResponseData<>(false, ResultCode.OK);
         }
     }
-
-//    @Override
-//    public ResponseData<List<Achievement>> getUserProcessingAchievementById(Long id) {
-//        List<Achievement> achievements = achievementRepository.findAllByStatus(Status.APPROVED).
-//        List<User> users =  userRepository.findAllByRole(Role.ADMIN);
-//        return new ResponseData<List<User>>(users, ResultCode.OK);
-//    }
 }

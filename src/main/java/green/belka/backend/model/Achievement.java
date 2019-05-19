@@ -19,12 +19,6 @@ public class Achievement {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
-//    @Setter
-//    @Getter
-//    @ManyToMany(cascade=CascadeType.MERGE)
-//    @JoinColumn(name = "achievements")
-//    private List<User> users;
-
     @Getter
     @Setter
     private Long authorId;
@@ -40,10 +34,6 @@ public class Achievement {
     @Getter
     @Setter
     private Long cost;
-
-//    @Getter
-//    @Setter
-//    private Status status;
 
     @Getter
     @Setter

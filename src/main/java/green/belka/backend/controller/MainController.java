@@ -4,7 +4,6 @@ import green.belka.backend.MainService;
 import green.belka.backend.model.Achievement;
 import green.belka.backend.model.ResponseData;
 import green.belka.backend.model.User;
-import green.belka.backend.repository.AchievementStatusRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -67,14 +66,6 @@ public class MainController {
         return mainService.getKeys(Long.parseLong(id));
     }
 
-//    @RequestMapping(
-//            value = {"/status/waiting/"},
-//            method = {RequestMethod.POST}
-//    )
-//    public ResponseData<Boolean> setStatusToWaiting(Long user, Long achievement){
-//        if(achievementStatusRepository.)
-//        return mainService.getUser(Long.parseLong(id));
-//    }
 
     @RequestMapping(
             value = {"/user/"},
@@ -133,12 +124,5 @@ public class MainController {
         return mainService.isAdmin(nickname);
     }
 
-//    @RequestMapping(
-//            value = {"/user/proc/achievement/{id}"},
-//            method = {RequestMethod.GET}
-//    )
-//    public ResponseData<List<Achievement>> getUserProcessingAchievementById(@PathVariable("id") Long id){
-//        return mainService.getUserProcessingAchievementById(id);
-//    }
 
 }
