@@ -162,6 +162,9 @@ public class MainServiceImpl implements MainService {
             if(achievement.getKeys().contains(key)){
                 User user = userRepository.findById(id).get();
                 user.getAchievements().add(achievement);
+                if(user.getScore() == null) {
+                    user.setScore(0l);
+                }
                 user.setScore(user.getScore() + achievement.getCost());
                 userRepository.save(user);
                 achievement.getKeys().remove(key);
