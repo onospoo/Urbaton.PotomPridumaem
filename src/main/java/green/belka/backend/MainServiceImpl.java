@@ -195,7 +195,7 @@ public class MainServiceImpl implements MainService {
     @Override
     public ResponseData<Boolean> isAdmin(String username) {
         User user = userRepository.findByNickname(username);
-        if(user.getRole()!= Role.ADMIN) {
+        if(user != null && user.getRole()!= Role.ADMIN) {
             return new ResponseData<>(false, ResultCode.OK);
         } else {
             return new ResponseData<>(true, ResultCode.OK);
