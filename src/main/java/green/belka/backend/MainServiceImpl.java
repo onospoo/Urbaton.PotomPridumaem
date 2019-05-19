@@ -53,6 +53,10 @@ public class MainServiceImpl implements MainService {
     public ResponseData<Long> addAchievementToUser(Achievement achievement, Long userId) {
         User user = userRepository.findById(userId).get();
 
+        if(user.getRole() != Role.ADMIN){
+            return new ResponseData<Long>(ResultCode.ERROR, "Permission denied!");
+        }
+
         if(achievement.getId() != null) {
             achievement = achievementRepository.findById(achievement.getId()).get();
         }
