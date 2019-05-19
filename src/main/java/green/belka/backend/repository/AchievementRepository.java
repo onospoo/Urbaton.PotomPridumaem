@@ -1,6 +1,7 @@
 package green.belka.backend.repository;
 
 import green.belka.backend.model.Achievement;
+import green.belka.backend.model.Status;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import javax.transaction.Transactional;

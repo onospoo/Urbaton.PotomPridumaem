@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class MainServiceImpl implements MainService {
@@ -38,7 +39,7 @@ public class MainServiceImpl implements MainService {
 
     @Override
     public ResponseData<Long> addAchievement(Achievement achievement)  {
-        achievement.setStatus(Status.NONE);
+//        achievement.setStatus(Status.NONE);
         Long id = achievementRepository.save(achievement).getId();
 
         return new ResponseData<>(id, ResultCode.OK);
@@ -56,7 +57,7 @@ public class MainServiceImpl implements MainService {
             user.setScore(0l);
         }
         user.setScore(user.getScore() + achievement.getCost());
-        achievement.setStatus(Status.STARTED);
+//        achievement.setStatus(Status.STARTED);
         user.getAchievements().add(achievement);
         user = userRepository.save(user);
         AchievementStatus achievementStatus = new AchievementStatus();
@@ -95,19 +96,19 @@ public class MainServiceImpl implements MainService {
     @Override
     public ResponseData<Long> addUser(User user) {
         Long id = userRepository.save(user).getId();
-        return new ResponseData<Long>(id, ResultCode.OK);
+        return new ResponseData<>(id, ResultCode.OK);
     }
 
     @Override
     public ResponseData<Long> updateUser(User user) {
         Long id = userRepository.save(user).getId();
-        return new ResponseData<Long>(id, ResultCode.OK);
+        return new ResponseData<>(id, ResultCode.OK);
     }
 
     @Override
     public ResponseData<Long> deleteUser(Long id) {
         userRepository.deleteById(id);
-        return new ResponseData<Long>(id, ResultCode.OK);
+        return new ResponseData<>(id, ResultCode.OK);
     }
 
     @Override
@@ -138,9 +139,24 @@ public class MainServiceImpl implements MainService {
     }
 
     @Override
-    public ResponseData<List<UUID>> getKeys(long id) {
+    public ResponseData<List<UUID>> getKeys(Long id) {
+        if(achievementRepository.findById(id).get() == null) {
+
+        }
         List<UUID> keys = achievementRepository.findById(id).get().getKeys();
-        return new ResponseData<List<UUID>>(keys, ResultCode.OK);
+        return new ResponseData<>(keys, ResultCode.OK);
     }
 
+    @Override
+    public ResponseData<List<User>> getAuthorsAndAchievement() {
+        List<User> users =  userRepository.findAllByRole(Role.ADMIN);
+        return new ResponseData<>(users, ResultCode.OK);
+    }
+
+//    @Override
+//    public ResponseData<List<Achievement>> getUserProcessingAchievementById(Long id) {
+//        List<Achievement> achievements = achievementRepository.findAllByStatus(Status.APPROVED).
+//        List<User> users =  userRepository.findAllByRole(Role.ADMIN);
+//        return new ResponseData<List<User>>(users, ResultCode.OK);
+//    }
 }

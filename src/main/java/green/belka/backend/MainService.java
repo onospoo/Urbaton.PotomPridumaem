@@ -39,6 +39,9 @@ public interface MainService {
 
     void setStatusToStarted(Long user, Long achievement);
 
+    ResponseData<List<UUID>> getKeys(Long id);
 
-    ResponseData<List<UUID>> getKeys(long id);
+    ResponseData<List<User>> getAuthorsAndAchievement();
+
+//    ResponseData<List<Achievement>> getUserProcessingAchievementById(Long id);
 }

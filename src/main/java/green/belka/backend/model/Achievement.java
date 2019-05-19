@@ -43,9 +43,9 @@ public class Achievement {
     @Setter
     private Long cost;
 
-    @Getter
-    @Setter
-    private Status status;
+//    @Getter
+//    @Setter
+//    private Status status;
 
     @Getter
     @Setter
@@ -55,6 +55,10 @@ public class Achievement {
     @Getter
     @Setter
     private Long achievement_limit;
+
+    @Setter
+    @Getter
+    private String avatar;
 
     public Achievement() {
         for(int i = 0; i < 10; ++i) {

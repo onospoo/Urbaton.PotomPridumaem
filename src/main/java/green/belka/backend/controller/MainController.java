@@ -99,4 +99,21 @@ public class MainController {
     public ResponseData<List<Achievement>> getAchievementsByUserId(@PathVariable("id") String id){
         return mainService.getAchievementsByUserId(Long.parseLong(id));
     }
+
+    @RequestMapping(
+            value = {"/authors/achievement/"},
+            method = {RequestMethod.GET}
+    )
+    public ResponseData<List<User>> getAuthorsAndAchievement(){
+        return mainService.getAuthorsAndAchievement();
+    }
+
+//    @RequestMapping(
+//            value = {"/user/proc/achievement/{id}"},
+//            method = {RequestMethod.GET}
+//    )
+//    public ResponseData<List<Achievement>> getUserProcessingAchievementById(@PathVariable("id") Long id){
+//        return mainService.getUserProcessingAchievementById(id);
+//    }
+
 }
