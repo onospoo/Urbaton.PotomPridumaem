@@ -127,7 +127,7 @@ public class MainController {
 
     @RequestMapping(
             value = {"/check_admin/{nickname}"},
-            method = {RequestMethod.POST}
+            method = {RequestMethod.GET}
     )
     public ResponseData<Boolean> isAdmin(@PathVariable("nickname") String nickname){
         return mainService.isAdmin(nickname);
