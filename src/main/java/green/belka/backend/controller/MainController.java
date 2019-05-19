@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @RestController
@@ -62,7 +63,7 @@ public class MainController {
             value = {"/keys/{id}"},
             method = {RequestMethod.GET}
     )
-    public ResponseData<List<UUID>> getKeys(@PathVariable("id") String id){
+    public ResponseData<Set<UUID>> getKeys(@PathVariable("id") String id){
         return mainService.getKeys(Long.parseLong(id));
     }
 
@@ -106,6 +107,14 @@ public class MainController {
     )
     public ResponseData<List<User>> getAuthorsAndAchievement(){
         return mainService.getAuthorsAndAchievement();
+    }
+
+    @RequestMapping(
+            value = {"/approve/{key}/{id}"},
+            method = {RequestMethod.POST}
+    )
+    public ResponseData<Long> approveKey(@PathVariable("key") UUID key, @PathVariable("id") String id){
+        return mainService.approveKey(key, Long.valueOf(id));
     }
 
 //    @RequestMapping(

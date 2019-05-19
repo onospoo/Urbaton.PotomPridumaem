@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -139,11 +140,11 @@ public class MainServiceImpl implements MainService {
     }
 
     @Override
-    public ResponseData<List<UUID>> getKeys(Long id) {
+    public ResponseData<Set<UUID>> getKeys(Long id) {
         if(achievementRepository.findById(id).get() == null) {
 
         }
-        List<UUID> keys = achievementRepository.findById(id).get().getKeys();
+        Set<UUID> keys = achievementRepository.findById(id).get().getKeys();
         return new ResponseData<>(keys, ResultCode.OK);
     }
 
@@ -151,6 +152,23 @@ public class MainServiceImpl implements MainService {
     public ResponseData<List<User>> getAuthorsAndAchievement() {
         List<User> users =  userRepository.findAllByRole(Role.ADMIN);
         return new ResponseData<>(users, ResultCode.OK);
+    }
+
+    @Override
+    public ResponseData<Long> approveKey(UUID key, Long id) {
+        List<Achievement> achievements = achievementRepository.findAll();
+        for (Achievement achievement : achievements) {
+            if(achievement.getKeys().contains(key)){
+                User user = userRepository.findById(id).get();
+                user.getAchievements().add(achievement);
+                user.setScore(user.getScore() + achievement.getCost());
+                userRepository.save(user);
+                achievement.getKeys().remove(key);
+                achievementRepository.save(achievement);
+                return new ResponseData<Long>(achievement.getId(), ResultCode.OK);
+            }
+        }
+        return new ResponseData<Long>(ResultCode.ERROR, "NO!");
     }
 
 //    @Override

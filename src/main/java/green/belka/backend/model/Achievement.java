@@ -6,9 +6,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 
 @Entity
@@ -69,5 +67,5 @@ public class Achievement {
     @Setter
     @Getter
     @ElementCollection
-    private List<UUID> keys = new ArrayList<>();
+    private Set<UUID> keys = new HashSet<>();
 }
