@@ -25,6 +25,11 @@ public class User {
 
     @Setter
     @Getter
+    @ElementCollection
+    private List<Achievement> achievements_owner;
+
+    @Setter
+    @Getter
     private Role role = Role.USER;
 
     @Getter

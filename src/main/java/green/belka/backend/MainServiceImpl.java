@@ -42,6 +42,9 @@ public class MainServiceImpl implements MainService {
     public ResponseData<Long> addAchievement(Achievement achievement)  {
 //        achievement.setStatus(Status.NONE);
         Long id = achievementRepository.save(achievement).getId();
+        User user = userRepository.findById(achievement.getId()).get();
+        user.getAchievements_owner().add(achievement);
+        userRepository.save(user);
 
         return new ResponseData<>(id, ResultCode.OK);
     }
